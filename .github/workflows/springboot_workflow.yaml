@@ -25,6 +25,8 @@ jobs:
 
   springboot-build:
     runs-on: ubuntu-latest
+    container:
+      image: eclipse-temurin:17-jdk
     outputs:
       success: ${{ steps.build.outputs.result }}
 
