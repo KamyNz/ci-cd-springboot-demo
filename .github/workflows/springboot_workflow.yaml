@@ -35,6 +35,7 @@ jobs:
       - name: Build
         id: build
         run: |
+          java --version
           ./gradlew build
           echo "result=OK" >> $GITHUB_OUTPUTS
 
