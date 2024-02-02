@@ -52,6 +52,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: springboot-build
 
+    env:
+      GITHUB_REPOSITORY: ${{ github.repository }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
@@ -60,13 +63,21 @@ jobs:
         run: |
           echo "${{ needs.springboot-build.outputs.success }}"
 
-      - name: Get Jar
+      - name: Get JAR
         uses: actions/download-artifact@v4
         with:
           name: spring-boot-jar
           path: demo
       - name: Run ls
         run: ls -lrth
+
+      - name: Docker Build with JAR
+        run: |
+          docker build -t spring-boot-demo:latest .
+          repository_lowercase=$(echo "${{ env.GITHUB_REPOSITORY }}" | tr '[:upper:]' '[:lower:]')
+          docker tag spring-boot-demo:latest ghcr.io/$repository_lowercase/spring-boot-demo:latest
+
+
 
 
 
