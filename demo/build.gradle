@@ -24,10 +24,7 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-task getProjectName() {
-	println rootProject.name
+task getJarName() {
+	println "${rootProject.name}-${version}"
 }
 
-task getProjectVersion() {
-	println version
-}
